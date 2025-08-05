@@ -1,36 +1,64 @@
 #include<iostream>
 #include<stdio.h>
 #include<string>
+#include<fstream>
 
 using namespace std;
 
-int main(){
+struct Cliente{
+    string nome;
+    string cpf;
+    string email;
+    int idade;
+};
 
-    struct{
-        string nome;
-        string cpf;
-        string email;
-        int idade;
-
-        void imprimir(){
-            cout<<"Nome:"<< nome<< endl;
-            cout<<"CPF: " << cpf<< endl;
-            cout<<"Email: "<<email<<endl;
-            cout<<"Idade: "<< idade <<endl;
-
-        }
-    } pessoa1;
+void CadastrarCliente(){
+    Cliente cliente;
 
     cout<<"Nome do cliente:"<<endl;
-    getline(cin, pessoa1.nome);
+    getline(cin, cliente.nome);
+    cin.ignore();
     cout<<"CPF do cliente: "<< endl;
-    getline(cin,pessoa1.cpf);
+    getline(cin,cliente.cpf);
+    cin.ignore();
     cout<<"E-mail do cliente:"<< endl;
-    getline(cin,pessoa1.email);
+    getline(cin,cliente.email);
+    cin.ignore();
     cout<<"Idade do cliente: "<< endl;
-    cin>>pessoa1.idade;
+    cin>>cliente.idade;
+    cin.ignore();
 
-    pessoa1.imprimir();
+    ofstream arquivo("clientes_cadastrados.txt",ios::app);
+
+    if (arquivo.is_open())
+    {
+        arquivo<<cliente.nome<<","<<cliente.cpf<<","<<cliente.email<<","<<cliente.idade<<endl;
+        arquivo.close();
+
+        cout<<"Cliente cadastrado com sucesso!"<<endl;
+    } else{
+        cout<<"Erro ao abrir o arquivo";    
+    }
+     
+}
+
+void ExcluirCliente(){
+    string nomeCliente;
+    cout<<"Digite o nome do usuário que deseja excluir: "<<endl;
+    getline(cin,nomeCliente);
+
+    ifstream arquivoAntigo("clientes_cadastrados.txt");
+
+    if(arquivoAntigo.is_open()){
+        string linha;
+        
+    }
+}
+
+int main(){
+
+    cout<<"Cadastro de Cliente:";
+    CadastrarCliente();
 
     return 0;
 }
