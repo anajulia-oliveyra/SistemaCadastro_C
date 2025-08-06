@@ -1,3 +1,4 @@
+//Código inspirado em https://alonza.com.br/projetos-em-c-mais-mais//
 #include<iostream>
 #include<stdio.h>
 #include<string>
@@ -42,16 +43,40 @@ void CadastrarCliente(){
      
 }
 
-void ExcluirCliente(){
+void excluirCliente(){
     string nomeCliente;
-    cout<<"Digite o nome do usuário que deseja excluir: "<<endl;
-    getline(cin,nomeCliente);
+    cout<< "Digite o nome do cliente que deseja excluir: "<<endl;
+    getline(cin, nomeCliente);
+    cin.ignore();
 
     ifstream arquivoAntigo("clientes_cadastrados.txt");
 
     if(arquivoAntigo.is_open()){
         string linha;
-        
+        string arquivoTemporario="temp.txt";
+
+        ofstream arquivoNovo(arquivoTemporario,ios::app);
+
+        if(arquivoNovo.is_open()){
+            while(getline(arquivoAntigo,linha)){
+                size_t posicao=linha.find(nomeCliente);
+                if(posicao==string::npos){
+                    arquivoNovo<<linha<<endl;
+                }
+            }
+
+            arquivoAntigo.close();
+            arquivoNovo.close();
+
+            remove("clientes_cadastrados.txt");
+            rename("temp.txt","clientes_cadastrados.txt");
+
+            cout<<"Cliente excluido com sucesso"<<endl;
+        } else{
+            cout<<"Erro ao abrir o arquivo temporario"<<endl;
+        }
+    } else{
+        cout<<"Erro ao abrir o arquivo antigo"<<endl;
     }
 }
 
