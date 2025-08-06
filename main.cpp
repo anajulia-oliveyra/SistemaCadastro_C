@@ -127,8 +127,12 @@ void editarCliente(){
                             default:
                                 cout<<"Opção inválida!"<<endl;
                         }
-                    }
+                    } while(opcao !=0);
 
+                    arquivoNovo<<clienteEditado.nome<<endl;
+                    arquivoNovo<<clienteEditado.cpf<<endl;
+                    arquivoNovo<<clienteEditado.email<<endl;
+                    arquivoNovo<<clienteEditado.idade<<endl;
 
                 }
             }
