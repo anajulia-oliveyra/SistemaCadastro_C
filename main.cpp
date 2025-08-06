@@ -17,17 +17,17 @@ void CadastrarCliente(){
     Cliente cliente;
 
     cout<<"Nome do cliente:"<<endl;
+    cin.ignore();
     getline(cin, cliente.nome);
-    cin.ignore();
     cout<<"CPF do cliente: "<< endl;
+    cin.ignore();
     getline(cin,cliente.cpf);
-    cin.ignore();
     cout<<"E-mail do cliente:"<< endl;
+    cin.ignore();
     getline(cin,cliente.email);
-    cin.ignore();
     cout<<"Idade do cliente: "<< endl;
-    cin>>cliente.idade;
     cin.ignore();
+    cin>>cliente.idade;
 
     ofstream arquivo("clientes_cadastrados.txt",ios::app);
 
@@ -43,11 +43,27 @@ void CadastrarCliente(){
      
 }
 
+void listarCliente(){
+    ifstream arquivo("clientes_cadastrados.txt");
+
+    if(arquivo.is_open()){
+        string linha;
+
+        while(getline(arquivo,linha)){
+            cout<<linha<<endl;
+        }
+
+        arquivo.close();
+    } else{
+        cout<<"Erro ao abrir o arquivo"<<endl;
+    }
+}
+
 void excluirCliente(){
     string nomeCliente;
     cout<< "Digite o nome do cliente que deseja excluir: "<<endl;
-    getline(cin, nomeCliente);
     cin.ignore();
+    getline(cin, nomeCliente);
 
     ifstream arquivoAntigo("clientes_cadastrados.txt");
 
@@ -82,8 +98,9 @@ void excluirCliente(){
 
 int main(){
 
-    cout<<"Cadastro de Cliente:";
+    cout<<"Sistema Cliente:";
     CadastrarCliente();
+    excluirCliente();
 
     return 0;
 }
