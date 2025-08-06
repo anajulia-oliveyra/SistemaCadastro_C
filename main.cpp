@@ -134,9 +134,27 @@ void editarCliente(){
                     arquivoNovo<<clienteEditado.email<<endl;
                     arquivoNovo<<clienteEditado.idade<<endl;
 
+                } else{
+                    arquivoNovo<<linha<<endl;
                 }
             }
+
+            arquivoAntigo.close();
+            arquivoNovo.close();
+
+            remove("clientes_cadastrados.txt");
+            rename("temp.txt","clientes_cadastrados.txt");
+
+            if(clienteEncontrado){
+                cout<<"Cliente editado com sucesso!"<<endl;
+            } else{
+                cout<<"Cliente não encontrado!"<<endl;
+            }
+        } else {
+            cout<<"Erro ao abrir o arquivo temporário"<<endl;
         }
+    } else {
+        cout<<"Erro ao abrir o arquivo antigo"<<endl;
     }
 }
 
