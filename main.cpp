@@ -17,16 +17,12 @@ void CadastrarCliente(){
     Cliente cliente;
 
     cout<<"Nome do cliente:"<<endl;
-    cin.ignore();
     getline(cin, cliente.nome);
     cout<<"CPF do cliente: "<< endl;
-    cin.ignore();
     getline(cin,cliente.cpf);
     cout<<"E-mail do cliente:"<< endl;
-    cin.ignore();
     getline(cin,cliente.email);
     cout<<"Idade do cliente: "<< endl;
-    cin.ignore();
     cin>>cliente.idade;
 
     ofstream arquivo("clientes_cadastrados.txt",ios::app);
@@ -62,7 +58,6 @@ void listarCliente(){
 void editarCliente(){
     string nomeCliente;
     cout<<"Digite o nome do cliente que voce quer editar:"<<endl;
-    cin.ignore();
     getline(cin,nomeCliente);
 
     ifstream arquivoAntigo("clientes_cadastrados.txt");
@@ -120,7 +115,7 @@ void editarCliente(){
                                 break;
                             case 4: 
                                 cout<<"Nova idade:" <<endl;
-                                getline(cin,clienteEditado.idade);
+                                cin>>clienteEditado.idade;
                                 break;
                             case 0:
                                 break;
@@ -161,7 +156,6 @@ void editarCliente(){
 void excluirCliente(){
     string nomeCliente;
     cout<< "Digite o nome do cliente que deseja excluir: "<<endl;
-    cin.ignore();
     getline(cin, nomeCliente);
 
     ifstream arquivoAntigo("clientes_cadastrados.txt");
@@ -197,9 +191,42 @@ void excluirCliente(){
 
 int main(){
 
-    cout<<"Sistema Cliente:";
-    CadastrarCliente();
-    excluirCliente();
+    cout<<"Sistema Cliente:"<<endl;
+
+    int opcao;
+
+    do {
+        cout << "\n========= MENU DO SISTEMA =========" << endl;
+        cout << "1. Cadastrar cliente" << endl;
+        cout << "2. Listar clientes" << endl;
+        cout << "3. Editar cliente" << endl;
+        cout << "4. Excluir cliente" << endl;
+        cout << "0. Sair" << endl;
+        cout << "Escolha uma opção: ";
+        cin >> opcao;
+        cin.ignore(); 
+
+        switch (opcao) {
+            case 1:
+                CadastrarCliente();
+                break;
+            case 2:
+                listarCliente();
+                break;
+            case 3:
+                editarCliente();
+                break;
+            case 4:
+                excluirCliente();
+                break;
+            case 0:
+                cout << "Encerrando o sistema..." << endl;
+                break;
+            default:
+                cout << "Opção inválida. Tente novamente." << endl;
+        }
+
+    } while (opcao != 0);
 
     return 0;
 }
